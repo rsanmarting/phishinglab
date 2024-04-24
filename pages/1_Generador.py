@@ -12,7 +12,6 @@ import pandas as pd
 import constants
 import phishingMethods.react as react
 import phishingMethods.biografia as biografia
-import phishingMethods.randomChoice as randomChoice
 import time
 st.set_page_config(
     page_title="PhishingLab - Generador",

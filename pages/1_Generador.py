@@ -10,8 +10,9 @@ from streamlit_js_eval import streamlit_js_eval
 from streamlit_carousel import carousel
 import pandas as pd
 import constants
-import react
-import biografia
+import phishingMethods.react as react
+import phishingMethods.biografia as biografia
+import phishingMethods.randomChoice as randomChoice
 import time
 st.set_page_config(
     page_title="PhishingLab - Generador",
@@ -28,43 +29,43 @@ test_items = [
         title="Ejemplo 1",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 2",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 3",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 4",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 5",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 6",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
     dict(
         title="Ejemplo 7",
         text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
         interval=None,
-        img="https://media.giphy.com/media/e6BTJ8bAak7V5Kv2FB/giphy.gif",
+        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ6bmN6czVmYjE1OWdnaWdpMTQ0d2V6eDlneHg4NWxrcDlkbHFrcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ES4Vcv8zWfIt2/giphy.gif",
     ),
 ]
 
@@ -82,7 +83,9 @@ agree = st.checkbox('He leído y acepto las Politicas de Privacidad. ¡Empecemos
 if agree:
     st.write('Perfecto!')
     
-st.divider()   
+
+
+st.divider()  
     
 if 'correo_generado1' not in st.session_state:
         st.session_state['correo_generado1'] = 'Correo 1 sin generar'

@@ -9,9 +9,6 @@ from streamlit_js_eval import streamlit_js_eval
 from streamlit_carousel import carousel
 import pandas as pd
 #import constants
-import react
-import biografia
-import time
 
 st.set_page_config(layout="wide")
 

@@ -72,8 +72,8 @@ home_ejemplo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
 st.title("Generador")
 st.markdown("#### Ejemplo: ")
 st.write(home_ejemplo)
-carousel(items=test_items, width=1)
-        
+st.markdown("""\n""")
+carousel(items=test_items, width=1)   
 st.divider()
 home_getstarted_2 = "Al marcar la casilla, confirma que ha leído y aceptado las políticas."
 st.write(home_getstarted_2)

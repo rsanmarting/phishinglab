@@ -5,11 +5,11 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import streamlit as st
-#from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 from streamlit_js_eval import streamlit_js_eval
 from streamlit_carousel import carousel
 import pandas as pd
-#import constants
+import constants
 import react
 import biografia
 import time

@@ -69,7 +69,7 @@ test_items = [
 ]
 
 home_ejemplo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet nisi in nunc sollicitudin ultrices. In dapibus dui pretium, mollis augue ut, dapibus velit. Integer blandit odio eget purus cursus, et condimentum est elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis euismod tellus vel velit mattis vulputate. Phasellus non libero augue. Duis ultricies tempor nisl, eget egestas mi gravida in."
-
+st.title("Generador")
 st.markdown("#### Ejemplo: ")
 st.write(home_ejemplo)
 carousel(items=test_items, width=1)

@@ -22,7 +22,7 @@ st.set_page_config(
 #conn = st.connection("gsheets", type=GSheetsConnection)
 #existing_data = conn.read(worksheet="datos", usecols=list(range(22)),ttl=22)
 #existing_data = existing_data.dropna(how="all")
-
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 home_ejemplo = '''
 El siguiente video muestra un ejemplo del uso de PhishingLab, explicando paso a 
 paso como funciona.

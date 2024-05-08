@@ -2,7 +2,6 @@ import os
 from streamlit_js_eval import streamlit_js_eval
 import streamlit as st
 #from streamlit_gsheets import GSheetsConnection
-from streamlit_carousel import carousel
 import pandas as pd
 #import constants
 

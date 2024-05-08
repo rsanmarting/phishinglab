@@ -13,7 +13,7 @@ home_title = "PhishingLab"
 home_introduction = "Hola, esta es una aplicación de generación de correos phishing que te muestra cómo pueden ser los correos fraudulentos que intentan engañarte para obtener tus datos personales, financieros o de acceso. Con esta aplicación, puedes ver ejemplos de correos phishing que simulan ser de entidades legítimas, como bancos, empresas, organismos públicos, etc. **Solo tienes que introducir los datos que creas que filtras con mayor facilidad** y la aplicación te mostrará un correo falso que podrías recibir en tu bandeja de entrada. Esta aplicación utiliza la tecnología GPT de OpenAI para crear correos phishing convincentes. Úsala y aprende a identificar y evitar los correos phishing."
 home_privacy = "Tu información personal no es almacenada de ninguna forma, apenas generas un correo todo se elimina, asegurando una completa privacidad y anonimato. Esto significa que puedes usar PhishingLab con tranquilidad, tus datos siempre están seguros."
 home_getstarted_1 = "Revise los Términos de uso y Política de privacidad, disponibles en la página de Términos."
-home_getstarted_2 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus venenatis massa, non fermentum massa varius ut. Etiam leo erat, viverra sed consequat nec, malesuada at augue. Donec efficitur odio ut massa porttitor, eu semper lectus dapibus. ¡Empecemos!"
+home_getstarted_2 = "Comienza a utilizar el sistema, guiado de un tutorial que enseñara como generar y evaluar los correos fraudulentos... ¡Empecemos!"
 st.markdown(
     "<style>#MainMenu{visibility:hidden;}</style>",
     unsafe_allow_html=True

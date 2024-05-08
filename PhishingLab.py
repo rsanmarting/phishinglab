@@ -36,6 +36,7 @@ st.markdown("""\n""")
 
 st.divider()    
 st.markdown("""\n""")
+st.markdown("#### Generador")
 st.write(home_getstarted_2)
 st.page_link("pages/1_Generador.py", label="COMENZAR", icon="🤖", use_container_width=False)
 st.markdown("""\n""")

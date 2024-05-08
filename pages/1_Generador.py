@@ -5,10 +5,11 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+#from streamlit_gsheets import GSheetsConnection
 from streamlit_js_eval import streamlit_js_eval
 from streamlit_carousel import carousel
 import pandas as pd
+from phishing_generator import *
 import constants
 import phishingMethods.react as react
 import phishingMethods.biografia as biografia
@@ -19,61 +20,45 @@ st.set_page_config(
 )
 
 #GSheets connection
-conn = st.connection("gsheets", type=GSheetsConnection)
-existing_data = conn.read(worksheet="datos", usecols=list(range(22)),ttl=22)
-existing_data = existing_data.dropna(how="all")
+#conn = st.connection("gsheets", type=GSheetsConnection)
+#existing_data = conn.read(worksheet="datos", usecols=list(range(22)),ttl=22)
+#existing_data = existing_data.dropna(how="all")
 
-test_items = [
-    dict(
-        title="Ejemplo 1",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 2",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 3",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 4",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 5",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 6",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-    dict(
-        title="Ejemplo 7",
-        text="Primero debes marcar qué datos son los más probables que filtres con facilidad en internet",
-        interval=None,
-        img="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjI5aTB4c3RnNms1amRmODVuc294Nmo3aWFiZHhrczB0bW9oZjJvaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q34Q46x7bUUKJfbn0s/giphy-downsized-large.gif",
-    ),
-]
+home_ejemplo = '''
+El siguiente video muestra un ejemplo del uso de PhishingLab, explicando paso a 
+paso como funciona.
 
-home_ejemplo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet nisi in nunc sollicitudin ultrices. In dapibus dui pretium, mollis augue ut, dapibus velit. Integer blandit odio eget purus cursus, et condimentum est elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis euismod tellus vel velit mattis vulputate. Phasellus non libero augue. Duis ultricies tempor nisl, eget egestas mi gravida in."
+Pasos a seguir:
+(1) Revise y acepte los Términos de uso y Política de privacidad
+
+(2) Debes marcar qué datos son los más probables que filtres con facilidad en 
+internet. Una vez marcada las casillas deberás rellenar con los datos
+
+(3) Ya con todos los datos listos presiona el botón de generar los correo y 
+espera a que se muestre en pantalla.
+
+(4) Una vez generado los correos lee su contenido detenidamente.*volver a 
+generar en caso de error*
+
+(5) Ya con los correos generados de manera correcta marca la casilla de 
+“Correos generados correctamente”
+
+(6) Rellena la encuesta marcando las casillas según lo indicado
+
+(7) Presiona el botón de enviar. Una vez ya enviada la encuesta se almacenarán
+los datos para su estudio, muchas gracias por participar.
+'''
 st.title("Generador")
 st.markdown("#### Ejemplo: ")
-st.write(home_ejemplo)
-st.markdown("""\n""")
-carousel(items=test_items, width=1)   
+st.text(home_ejemplo)
+st.markdown("""\n""") 
+
+#VIDEO EJEMPLO
+video_file = open('assets/video_ejemplophishinglab.mp4', 'rb')
+video_bytes = video_file.read()
+
+st.video(video_bytes)
+
 st.divider()
 home_getstarted_2 = "Al marcar la casilla, confirma que ha leído y aceptado las políticas."
 st.write(home_getstarted_2)
@@ -194,19 +179,31 @@ if submitted:
         if agree:
                 with st.spinner('La generación del correo puede tardar de 40 segundos a 2 minutos, por favor espera...'):
                         time.sleep(1)
-                        response1 = react.phishing_react(nombrep,correop,direccionp,nacimientop,telefonop,laboralp,interesp,familiap)
-                        response2 = biografia.phishing_biografia(nombrep,correop,direccionp,nacimientop,telefonop,laboralp,interesp,familiap)
+                        
+                        datos_prelim = {
+                                "Nombre": nombrep,
+                                "Correo": correop,
+                                "Direccion": direccionp,
+                                "Fecha de Nacimiento": nacimientop,
+                                "Teléfono": telefonop,
+                                "Laboral": laboralp,
+                                "Intereses": interesp,
+                                "Familia": familiap
+                        }
+                        datos = dict()
+                        # Tener llaves sin valor afecta el desempeño del modelo, por alguna razón.
+                        for dato in datos_prelim:
+                            if datos_prelim[dato] != "":
+                                datos[dato] = datos_prelim[dato]
+                                
+                        response1 = generate_phishing_react_R(datos, Models.GPT3)
+                        response2 = generate_phishing_bio(datos, Models.GPT3)
+                                
                         st.session_state['correo_generado1'] = response1[0]
                         st.session_state['correo_generado2'] = response2[0]
                         st.session_state['trait1'] = response1[1]
                         st.session_state['trait2'] = response2[1]
 
-                        response1 = react.phishing_react(nombrep,correop,direccionp,nacimientop,telefonop,laboralp,interesp,familiap)
-                        response2 = biografia.phishing_biografia(nombrep,correop,direccionp,nacimientop,telefonop,laboralp,interesp,familiap)
-                        st.session_state['correo_generado1'] = response1[0]
-                        st.session_state['correo_generado2'] = response2[0]
-                        st.session_state['trait1'] = response1[1]
-                        st.session_state['trait2'] = response2[1]
                         correof.info("METODO 1:")
                         correof.info(response1[0])
                         correof.info("METODO 2:")
@@ -328,9 +325,9 @@ if encuesta_lista :
                                         }
                                 ]
                                 )
-                        updated_df = pd.concat([existing_data,ejemplo_data], ignore_index=True)
+                        #updated_df = pd.concat([existing_data,ejemplo_data], ignore_index=True)
                         #actualizar googlesheets
-                        conn.update(worksheet="datos", data=updated_df)
+                        #conn.update(worksheet="datos", data=updated_df)
                         encuestaf.success("Gracias!!", icon="✅")
                         time.sleep(3)
                         streamlit_js_eval(js_expressions="parent.window.location.reload()")

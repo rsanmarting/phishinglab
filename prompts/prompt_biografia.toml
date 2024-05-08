@@ -1,0 +1,21 @@
+tecnica = "biografia"
+has_langchain_template = true
+
+[[mensajes]]
+content = """
+Simula una biografia para los siguientes datos:
+{input1}"""
+
+[[mensajes]]
+content = """
+Simula un posible correo Phishing para la siguiente persona:
+{input1}.
+El correo debe generar {input2} y solicitar ingresar a un link falso."""
+
+[[mensajes]]
+content = """
+Mejora redaccion y estructura, añadiendo un asunto coherente a lo descrito en el correo:
+{input1}."""
+
+
+

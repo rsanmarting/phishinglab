@@ -1,0 +1,9 @@
+tecnica = "zero shot directo"
+
+[[mensajes]]
+role = "system"
+content = """
+A continuación, se te entregarán los datos de un individuo ficticio que ha recibido un correo de
+phishing. Tu tarea es predecir el cuerpo del correo de phishing que recibió en base a los datos
+provistos. """
+

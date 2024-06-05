@@ -13,6 +13,7 @@ import constants
 import phishingMethods.react as react
 import phishingMethods.biografia as biografia
 import time
+import random
 st.set_page_config(
     page_title="PhishingLab - Generador",
     #menu_items={"About": "GPT Lab is a user-friendly app that allows anyone to interact with and create their own AI Assistants powered by OpenAI's GPT language model. Our goal is to make AI accessible and easy to use for everyone, so you can focus on designing your Assistant without worrying about the underlying infrastructure.", "Get help": None, "Report a Bug": None}
@@ -197,6 +198,20 @@ if submitted:
                                 
                         response1 = generate_phishing_react_R(datos, Models.GPT3)
                         response2 = generate_phishing_bio(datos, Models.GPT3)
+                        # Lista de metodos
+                        items = ['reactR', 'bioR']
+
+                        # Select a random item
+                        selected_method = random.choice(items)
+
+                        match selected_method:
+                                case 'reactR':
+                                        print("react")
+
+                                case 'bioR':
+                                        print("biography")
+
+                                
                                 
                         st.session_state['correo_generado1'] = response1[0]
                         st.session_state['correo_generado2'] = response2[0]

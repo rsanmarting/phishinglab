@@ -51,12 +51,20 @@ def generate_phishing_react_A(input: dict, model: Models):
         model=model.value, temperature=0.5, messages=messages
     )
     output_parser = StrOutputParser()
+
+    #EXTRAER RESPUESTA
+    final_response_template =  PromptTemplate.from_template(
+        "Entrega el cuerpo del correo de RESPUESTA, mejorando redaccion y estructura."
+    )   
+    response_chain = final_response_template | llm | output_parser
+    final_response = response_chain.invoke({"input": response.choices[0].message.content})
+
     trait_template = PromptTemplate.from_template(
         "Sabiendo los siguientes rasgos Autoridad: Los datos de la victima pueden ser usados para falsificar una figura de autoridad. Urgencia: Los datos de la victima pueden ser usados para generar una sensación de urgencia que la presione a tomar acción. Deseo: Los datos de la víctima pueden ser usados para generar una sensación de deseo por algo. Bajo que rasgo clasificarias el siguiente correo:\n{input}?\nSolo responde con el rasgo que creas, nada más."
     )
     trait_chain = trait_template | llm | output_parser
-    traitFinal = trait_chain.invoke({"input": response})
-    return [response.choices[0].message.content, traitFinal]
+    traitFinal = trait_chain.invoke({"input": final_response})
+    return [final_response, traitFinal]
 
 
 def generate_phishing_react_R(input: dict, model: Models):

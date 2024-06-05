@@ -166,7 +166,8 @@ else:
         familiap = ""
 
 # Lista de metodos
-items = ['reactR','reactA','bioR']
+#items = ['reactR','reactA','bioR']
+items = ['reactA']
 
 # Select a random item
 selected_method = random.choice(items)

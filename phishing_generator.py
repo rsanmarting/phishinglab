@@ -42,6 +42,10 @@ def generate_phishing_react_A(input: dict, model: Models):
 
     messages.append({"role": "user", "content": digest_input(input)})
 
+    llm = ChatOpenAI(
+        model=model.value, temperature=0.4, openai_api_key=os.environ["OPENAI_API_KEY"]
+    )
+
     client = OpenAI()
     response = client.chat.completions.create(
         model=model.value, temperature=0.5, messages=messages
@@ -50,7 +54,7 @@ def generate_phishing_react_A(input: dict, model: Models):
     trait_template = PromptTemplate.from_template(
         "Sabiendo los siguientes rasgos Autoridad: Los datos de la victima pueden ser usados para falsificar una figura de autoridad. Urgencia: Los datos de la victima pueden ser usados para generar una sensación de urgencia que la presione a tomar acción. Deseo: Los datos de la víctima pueden ser usados para generar una sensación de deseo por algo. Bajo que rasgo clasificarias el siguiente correo:\n{input}?\nSolo responde con el rasgo que creas, nada más."
     )
-    trait_chain = trait_template | client | output_parser
+    trait_chain = trait_template | llm | output_parser
     traitFinal = trait_chain.invoke({"input": response})
     return [response, traitFinal]
 

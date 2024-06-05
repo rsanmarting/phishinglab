@@ -34,11 +34,11 @@ internet. Una vez marcada las casillas deberás rellenar con los datos
 (3) Ya con todos los datos listos presiona el botón de generar los correo y 
 espera a que se muestre en pantalla.
 
-(4) Una vez generado los correos lee su contenido detenidamente.*volver a 
+(4) Una vez generado el correo lee su contenido detenidamente.*volver a 
 generar en caso de error*
 
-(5) Ya con los correos generados de manera correcta marca la casilla de 
-“Correos generados correctamente”
+(5) Ya con el correo generado de manera correcta marca la casilla de 
+“Correo generado correctamente”
 
 (6) Rellena la encuesta marcando las casillas según lo indicado
 
@@ -166,8 +166,8 @@ else:
         familiap = ""
 
 # Lista de metodos
-#items = ['reactR','reactA','bioR']
-items = ['reactA']
+items = ['reactR','reactA','bioR']
+
 
 # Select a random item
 selected_method = random.choice(items)
@@ -185,7 +185,7 @@ match selected_method:
 
 # Form to accept user's text input for summarization
 correof = st.form('colecting_form')
-submitted = correof.form_submit_button('Generar correos')
+submitted = correof.form_submit_button('Generar correo')
 if submitted:
         if agree:
                 with st.spinner('La generación del correo puede tardar de 40 segundos a 2 minutos, por favor espera...'):
@@ -242,7 +242,7 @@ if submitted:
 
 
 
-encuesta_lista = st.checkbox('Correos generados correctamente')
+encuesta_lista = st.checkbox('Correo generado correctamente')
 if encuesta_lista :
         if st.session_state['correo_generado'] != 'Correo sin generar':
                 #Explicar autoridad, urgencia y deseo, explicar la escal;a del 1 al 5.
@@ -269,13 +269,13 @@ if encuesta_lista :
                 ej9 = st.session_state['trait']
                 
                 #PREGUNTAS CORREO 1
-                ej11 = encuestaf.slider('¿Cuál fue la sensación de **autoridad** que te causó el correo generado con el **Metodo 1**? (Por ejemplo: Se utiliza alguna figura de autoridad como Jefe de algún área o entidades gubernamentales.)', 0, 4, 1)
-                ej12 = encuestaf.slider('¿Cuál fue la sensación de **urgencia** que te causó el correo generado con el **Metodo 1**? (Por ejemplo: Se presiona a tomar una acción de forma urgente debido a una fecha límite o escasez de algo.)', 0, 4, 1)
-                ej13 = encuestaf.slider('¿Cuál fue la sensación de **deseo** que te causó el correo generado con el **Metodo 1**? (Por ejemplo: La atracción hacia un producto o servicio específico que te beneficie.)', 0, 4, 1)
-                ej14 = encuestaf.slider('¿Qué tan probable es que creyeras el contenido del correo del **Metodo 1**?', 0, 4, 1)
+                ej11 = encuestaf.slider('¿Cuál fue la sensación de **autoridad** que te causó el correo generado? (Por ejemplo: Se utiliza alguna figura de autoridad como Jefe de algún área o entidades gubernamentales.)', 0, 4, 1)
+                ej12 = encuestaf.slider('¿Cuál fue la sensación de **urgencia** que te causó el correo generado? (Por ejemplo: Se presiona a tomar una acción de forma urgente debido a una fecha límite o escasez de algo.)', 0, 4, 1)
+                ej13 = encuestaf.slider('¿Cuál fue la sensación de **deseo** que te causó el correo generado? (Por ejemplo: La atracción hacia un producto o servicio específico que te beneficie.)', 0, 4, 1)
+                ej14 = encuestaf.slider('¿Qué tan probable es que creyeras el contenido del correo?', 0, 4, 1)
                 #PREGUNTA ABIERTA(falla tecnica,calidad del correo-complementar respuesta)
                 ej15 = encuestaf.text_input(
-                "En relación a tu respuesta de la pregunta anterior. Explica por qué elegiste ese resultado para el contenido del correo del **Metodo 1**.",
+                "En relación a tu respuesta de la pregunta anterior. Explica por qué elegiste ese resultado para el contenido del correo.",
                 None,
                 key="ej15",
                 placeholder="Explica en este recuadro.",

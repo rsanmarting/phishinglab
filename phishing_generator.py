@@ -56,7 +56,7 @@ def generate_phishing_react_A(input: dict, model: Models):
     )
     trait_chain = trait_template | llm | output_parser
     traitFinal = trait_chain.invoke({"input": response})
-    return [response, traitFinal]
+    return [response.choices[0].message.content, traitFinal]
 
 
 def generate_phishing_react_R(input: dict, model: Models):

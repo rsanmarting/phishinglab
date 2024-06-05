@@ -71,17 +71,13 @@ if agree:
 
 st.divider()  
     
-if 'correo_generado1' not in st.session_state:
-        st.session_state['correo_generado1'] = 'Correo 1 sin generar'
+if 'correo_generado' not in st.session_state:
+        st.session_state['correo_generado'] = 'Correo sin generar'
 
-if 'correo_generado2' not in st.session_state:
-        st.session_state['correo_generado2'] = 'Correo 2 sin generar'
+if 'trait' not in st.session_state:
+        st.session_state['trait1'] = 'Trait sin generar'
 
-if 'trait1' not in st.session_state:
-        st.session_state['trait1'] = 'Trait1 sin generar'
 
-if 'trait2' not in st.session_state:
-        st.session_state['trait2'] = 'Trait2 sin generar'
 
 # Text input
 uso_nombre = st.checkbox('¿Utilizar el nombre?')
@@ -210,21 +206,24 @@ if submitted:
                             if datos_prelim[dato] != "":
                                 datos[dato] = datos_prelim[dato]
                                 
-                        response1 = generate_phishing_react_R(datos, Models.GPT3)
-                        response2 = generate_phishing_bio(datos, Models.GPT3)
+                        response = []
                         #ADD RANDOM METHOD PICKER
+                        match selected_method:
+                                case 'reactR':
+                                        response = generate_phishing_react_R(datos, Models.GPT3)
 
+                                case 'bioR':
+                                        response = generate_phishing_bio(datos, Models.GPT3)
                                 
                                 
-                        st.session_state['correo_generado1'] = response1[0]
-                        st.session_state['correo_generado2'] = response2[0]
-                        st.session_state['trait1'] = response1[1]
-                        st.session_state['trait2'] = response2[1]
+                        st.session_state['correo_generado'] = response[0]
+                        
+                        st.session_state['trait'] = response[1]
+                        
 
-                        correof.info("METODO 1:")
-                        correof.info(response1[0])
-                        correof.info("METODO 2:")
-                        correof.info(response2[0])
+                        correof.info("CORREO GENERADO CON PHISHINGLAB:")
+                        correof.info(response[0])
+                        
         else:
                 with st.spinner('La generación del correo puede tardar de 40 segundos a 2 minutos, por favor espera...'):
                         time.sleep(1)
@@ -241,16 +240,13 @@ if submitted:
 
 encuesta_lista = st.checkbox('Correos generados correctamente')
 if encuesta_lista :
-        if st.session_state['correo_generado1'] != 'Correo 1 sin generar' and st.session_state['correo_generado2'] != 'Correo  sin generar':
+        if st.session_state['correo_generado'] != 'Correo sin generar':
                 #Explicar autoridad, urgencia y deseo, explicar la escal;a del 1 al 5.
                 st.write('Esta es una encuesta para estudiar el correo generado, a continuación se mostrarán una serie de preguntas junto a unas barras con el valor del 0 al 4, **utiliza las barras para responder las preguntas según se indique (0-nada, 1-poco, 2-neutral, 3-bastante, 4-mucho)**:')
                 encuestaf = st.form("datos_form")
-                correo_correcto1 = st.session_state['correo_generado1']
-                correo_correcto2 = st.session_state['correo_generado2']
-                encuestaf.info("METODO 1:")
-                encuestaf.info(correo_correcto1)
-                encuestaf.info("METODO 2:")
-                encuestaf.info(correo_correcto2)
+                correo_correcto = st.session_state['correo_generado']
+                encuestaf.info("CORREO GENERADO CON PHISHINGLAB:")
+                encuestaf.info(correo_correcto)
                 
                 
                 #CONTENIDO ENCUESTA
@@ -266,8 +262,7 @@ if encuesta_lista :
                 ej8 = uso_familia
                 
                 #TRAITS USADOS SEGUN MODELO
-                ej9 = st.session_state['trait1']
-                ej10 = st.session_state['trait2']
+                ej9 = st.session_state['trait']
                 
                 #PREGUNTAS CORREO 1
                 ej11 = encuestaf.slider('¿Cuál fue la sensación de **autoridad** que te causó el correo generado con el **Metodo 1**? (Por ejemplo: Se utiliza alguna figura de autoridad como Jefe de algún área o entidades gubernamentales.)', 0, 4, 1)
@@ -279,21 +274,6 @@ if encuesta_lista :
                 "En relación a tu respuesta de la pregunta anterior. Explica por qué elegiste ese resultado para el contenido del correo del **Metodo 1**.",
                 None,
                 key="ej15",
-                placeholder="Explica en este recuadro.",
-                label_visibility="visible")
-                
-                
-                #PREGUNTAS DE CORREO 2
-                ej16 = encuestaf.slider('¿Cuál fue la sensación de **autoridad** que te causó el correo generado con el **Metodo 2**? (Por ejemplo: Se utiliza alguna figura de autoridad como Jefe de algún área o entidades gubernamentales.)', 0, 4, 1)
-                ej17 = encuestaf.slider('¿Cuál fue la sensación de **urgencia** que te causó el correo generado con el **Metodo 2**? (Por ejemplo: Se presiona a tomar una acción de forma urgente debido a una fecha límite o escasez de algo.)', 0, 4, 1)
-                ej18 = encuestaf.slider('¿Cuál fue la sensación de **deseo** que te causó el correo generado con el **Metodo 2**? (Por ejemplo: La atracción hacia un producto o servicio específico que te beneficie.)', 0, 4, 1)
-                ej19 = encuestaf.slider('¿Qué tan probable es que creyeras el contenido del correo del **Metodo 2**?', 0, 4, 1)
-                #PREGUNTA ABIERTA(falla tecnica,calidad del correo-complementar respuesta)
-                
-                ej20 = encuestaf.text_input(
-                "En relación a tu respuesta de la pregunta anterior. Explica por qué elegiste ese resultado para el contenido del correo del **Metodo 2**.",
-                None,
-                key="ej20",
                 placeholder="Explica en este recuadro.",
                 label_visibility="visible")
                 
@@ -326,17 +306,11 @@ if encuesta_lista :
                                         "Intereses": ej7,
                                         "Familiar": ej8,
                                         "RasgoDefinido1": ej9,
-                                        "RasgoDefinido2": ej10,
                                         "Autoridad1": ej11,
                                         "Urgencia1": ej12,
                                         "Deseo1": ej13,
                                         "CreerCorreo1": ej14,
                                         "ExplicaCreerCorreo1": ej15, 
-                                        "Autoridad2": ej16,
-                                        "Urgencia2": ej17,
-                                        "Deseo2": ej18,
-                                        "CreerCorreo2": ej19,
-                                        "ExplicaCreerCorreo2": ej20,
                                         "PeligroFuturo": ej21, 
                                         "ExplicaPeligroFuturo": ej22,     
                                         }

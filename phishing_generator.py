@@ -54,7 +54,7 @@ def generate_phishing_react_A(input: dict, model: Models):
 
     #EXTRAER RESPUESTA
     final_response_template =  PromptTemplate.from_template(
-        "Entrega el cuerpo del correo de RESPUESTA, mejorando redaccion y estructura."
+        "Extráe solo el contenido del correo electrónico de la siguiente información, omitiendo todo el texto previo al encabezado 'Asunto:' y cualquier otra instrucción o comentario adicional."
     )   
     response_chain = final_response_template | llm | output_parser
     final_response = response_chain.invoke({"input": response.choices[0].message.content})
@@ -64,7 +64,7 @@ def generate_phishing_react_A(input: dict, model: Models):
     )
     trait_chain = trait_template | llm | output_parser
     traitFinal = trait_chain.invoke({"input": final_response})
-    return [response.choices[0].message.content, traitFinal]
+    return [final_response, traitFinal]
 
 
 def generate_phishing_react_R(input: dict, model: Models):

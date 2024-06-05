@@ -9,9 +9,6 @@ import streamlit as st
 from streamlit_js_eval import streamlit_js_eval
 import pandas as pd
 from phishing_generator import *
-import constants
-import phishingMethods.react as react
-import phishingMethods.biografia as biografia
 import time
 import random
 st.set_page_config(

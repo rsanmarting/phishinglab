@@ -171,7 +171,20 @@ if uso_familia:
                 label_visibility="visible")
 else:
         familiap = ""
-        
+
+# Lista de metodos
+items = ['reactR', 'bioR']
+
+# Select a random item
+selected_method = random.choice(items)
+
+match selected_method:
+        case 'reactR':
+                print("react")
+
+        case 'bioR':
+                print("biography")
+
 # Form to accept user's text input for summarization
 correof = st.form('colecting_form')
 submitted = correof.form_submit_button('Generar correos')
@@ -198,18 +211,7 @@ if submitted:
                                 
                         response1 = generate_phishing_react_R(datos, Models.GPT3)
                         response2 = generate_phishing_bio(datos, Models.GPT3)
-                        # Lista de metodos
-                        items = ['reactR', 'bioR']
-
-                        # Select a random item
-                        selected_method = random.choice(items)
-
-                        match selected_method:
-                                case 'reactR':
-                                        print("react")
-
-                                case 'bioR':
-                                        print("biography")
+                        #ADD RANDOM METHOD PICKER
 
                                 
                                 

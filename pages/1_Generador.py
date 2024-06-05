@@ -180,10 +180,11 @@ selected_method = random.choice(items)
 
 match selected_method:
         case 'reactR':
-                print("react")
+                st.text("REACT")
 
         case 'bioR':
-                print("biography")
+                st.text("BIO")
+
 
 # Form to accept user's text input for summarization
 correof = st.form('colecting_form')

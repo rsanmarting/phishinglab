@@ -166,14 +166,17 @@ else:
         familiap = ""
 
 # Lista de metodos
-items = ['reactR', 'bioR']
+items = ['reactR','reactA','bioR']
 
 # Select a random item
 selected_method = random.choice(items)
 
 match selected_method:
         case 'reactR':
-                st.text("REACT")
+                st.text("REACTR")
+
+        case 'reactA':
+                st.text("REACTA")
 
         case 'bioR':
                 st.text("BIO")
@@ -209,6 +212,9 @@ if submitted:
                                 case 'reactR':
                                         response = generate_phishing_react_R(datos, Models.GPT3)
 
+                                case 'reactA':
+                                        response = generate_phishing_react_A(datos, Models.GPT3)
+                                
                                 case 'bioR':
                                         response = generate_phishing_bio(datos, Models.GPT3)
                                 

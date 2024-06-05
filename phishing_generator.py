@@ -36,9 +36,7 @@ class Models(Enum):
     GPT4 = "gpt-4"
 
 
-def generate_phishing_react_A(
-    input: dict, model: Models, temperature: float = 0.5
-) -> dict:
+def generate_phishing_react_A(input: dict, model: Models):
     prompt_dict = Prompts.REACT_A.getPrompt()
     messages = Prompts.REACT_A.getPrompt()["mensajes"]
 
@@ -46,10 +44,15 @@ def generate_phishing_react_A(
 
     client = OpenAI()
     response = client.chat.completions.create(
-        model=model.value, temperature=temperature, messages=messages
+        model=model.value, temperature=0.5, messages=messages
     )
-
-    return package(prompt_dict, response, temperature, input)
+    output_parser = StrOutputParser()
+    trait_template = PromptTemplate.from_template(
+        "Sabiendo los siguientes rasgos Autoridad: Los datos de la victima pueden ser usados para falsificar una figura de autoridad. Urgencia: Los datos de la victima pueden ser usados para generar una sensación de urgencia que la presione a tomar acción. Deseo: Los datos de la víctima pueden ser usados para generar una sensación de deseo por algo. Bajo que rasgo clasificarias el siguiente correo:\n{input}?\nSolo responde con el rasgo que creas, nada más."
+    )
+    trait_chain = trait_template | client | output_parser
+    traitFinal = trait_chain.invoke({"input": response})
+    return [response, traitFinal]
 
 
 def generate_phishing_react_R(input: dict, model: Models):
